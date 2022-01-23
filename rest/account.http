@@ -1,0 +1,91 @@
+@apiurl_1 = http://localhost:3001/v1
+@accessToken = {{login.response.body.$.data.accessToken}}
+@refreshToken = {{login.response.body.$.data.refreshToken}}
+@userId = {{login.response.body.$.data.user._id}}
+
+###
+GET {{apiurl_1}}
+Content-Type: application/json
+
+### 
+# @name login
+POST {{apiurl_1}}/auth/login
+Content-Type: application/json
+
+{  
+    "email": "recep1@gmail.com",
+    "password": "123456" 
+}
+
+###
+POST {{apiurl_1}}/customers
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{   
+    "methodName": "SelectByColumns",
+    "data": {
+        "userId":"{{userId}}"
+         //"_id":"5fb02e7d6dc0271a305c759a",
+         //"isActive" : false
+    }
+}
+
+###
+POST {{apiurl_1}}/accounts
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{   
+    "methodName": "SelectByColumns",
+    "data": {
+        "userId":"{{userId}}",
+        "customerId":"5fcd13ffa3ba96001743346d",
+        "isActive": true
+    }
+}
+
+###
+POST {{apiurl_1}}/accounts
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{   
+    "methodName": "SelectAccountStatistics",
+    "data": {
+        "userId":"{{userId}}",
+        "isActive" : true,
+        "chartNo": 1,
+        "month": 10,
+        "year": 2020
+    }
+}
+
+###
+POST {{apiurl_1}}/accounts
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{    
+    "methodName": "Update",
+    "data": {
+        "userId":"{{userId}}",
+        "_id": "5fcd13ffa3ba960017433385",
+        "isActive" : false
+    }
+}
+
+###
+POST {{apiurl_1}}/accounts
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{    
+    "methodName": "Insert",
+    "data": {
+        "userId":"{{userId}}",
+        "customerId": "5fcd13ffa3ba960017433385",
+        "tranType": "l",
+        "loanAmount":"523"
+    }
+}

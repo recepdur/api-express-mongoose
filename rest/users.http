@@ -1,0 +1,105 @@
+@apiurl_1 = http://localhost:3001/v1
+@accessToken = {{login.response.body.$.data.accessToken}}
+@refreshToken = {{login.response.body.$.data.refreshToken}}
+@userId = {{login.response.body.$.data.user._id}}
+
+###
+GET {{apiurl_1}}
+Content-Type: application/json
+
+### 
+# @name login
+POST {{apiurl_1}}/auth/login
+Content-Type: application/json
+
+{  
+    "email": "recep1@gmail.com",
+    "password": "123456"
+}
+
+###
+POST {{apiurl_1}}/users
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{   
+    "methodName": "SelectByColumns",
+    "data": {
+        "userId":"{{userId}}"
+    }
+}
+
+###
+POST {{apiurl_1}}/users
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{   
+    "methodName": "SelectUserStatistics",
+    "data": {
+        "userId":"{{userId}}",
+        "isActive" : true,
+        "chartNo": 1 
+    }
+}
+
+###
+POST {{apiurl_1}}/users
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{   
+    "methodName": "SelectByKey",
+    "data": {
+        "userId":"{{userId}}",
+        "_id":"{{userId}}"
+    }
+}
+
+###
+POST {{apiurl_1}}/users
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{    
+    "methodName": "Insert",
+    "data": {
+        "userId":"{{userId}}",
+        "email" : "yagmur@gmail.com",
+        "password": "123456",
+        "name" : "Yağmur Dur",
+        "displayName" : "sigorta",
+        "phone" : "5449128008",
+        "role": "admin"
+    }
+}
+
+###
+POST {{apiurl_1}}/users
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{    
+    "methodName": "Update",
+    "data": {
+        "userId":"{{userId}}",
+        "_id":"{{userId}}",
+        //"name":"Ahmet Dur"
+        "role" : "admin",
+        "password": "123456",
+        "isActive": true
+    }
+}
+
+###
+POST {{apiurl_1}}/users
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+    "methodName": "Delete",
+    "data": {
+        "userId":"{{userId}}",
+        "_id":"5ff9ce830cfa011efc7559d6"
+    }
+}

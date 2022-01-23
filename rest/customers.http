@@ -1,0 +1,117 @@
+@apiurl_1 = http://localhost:3001/v1
+@accessToken = {{login.response.body.$.data.accessToken}}
+@refreshToken = {{login.response.body.$.data.refreshToken}}
+@userId = {{login.response.body.$.data.user._id}}
+
+###
+GET {{apiurl_1}}
+Content-Type: application/json
+
+### 
+# @name login
+POST {{apiurl_1}}/auth/login
+Content-Type: application/json
+
+{  
+    "email": "recep1@gmail.com",
+    "password": "123456"
+}
+
+###
+POST {{apiurl_1}}/customers
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{   
+    "methodName": "SelectCustomerStatistics",
+    "data": {
+        "userId":"{{userId}}",
+        "isActive" : true,
+        "chartNo": 1 
+    }
+}
+
+###
+POST {{apiurl_1}}/customers
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{   
+    "methodName": "SelectByColumns",
+    "data": {
+        "userId":"{{userId}}"
+         //"_id":"5fb02e7d6dc0271a305c759a",
+         //"isActive" : false
+    }
+}
+
+###
+POST {{apiurl_1}}/customers
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{    
+    "methodName": "Update",
+    "data": {
+        "userId":"{{userId}}",
+        "_id": "5fb02e7d6dc0271a305c759a",
+        "isActive" : false
+    }
+}
+
+###
+POST {{apiurl_1}}/customers
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{    
+    "methodName": "Insert",
+    "data": {
+        "userId":"{{userId}}",
+        "_id": "5f74e24b2406ea4f2cf19477",
+         "firstName": "recep",
+         "tcNo":"426345777"
+    }
+}
+
+###
+GET {{apiurl_1}}/customers
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+###
+GET {{apiurl_1}}/customers/5f5e0a5e9c7f17227c06296b
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+###
+POST {{apiurl_1}}/customers
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{  
+    "userId":"{{userId}}",
+    "firstName": "müşteri 4",
+    "lastName": "müşteri 4",
+    "phone": "05449128008",
+    "email": "musteri4@gmail.com",
+    "tcNo": "987654321"
+}
+
+###
+PUT {{apiurl_1}}/customers/5f6a5e0d21d12a06f0f5979e
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{  
+    // "userId":"{{userId}}",
+    // "firstName": "müşteri 4",
+    // "phone": "05449128008",
+    "lastName": "musteri34@gmail.com"
+}
+
+
+###
+DELETE  {{apiurl_1}}/customers/5f5c891190e5783dec960ef8
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}

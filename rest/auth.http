@@ -1,0 +1,54 @@
+@apiurl_1 = http://localhost:3001/v1
+@accessToken = {{login.response.body.$.data.accessToken}}
+@refreshToken = {{login.response.body.$.data.refreshToken}}
+@userId = {{login.response.body.$.data.user._id}}
+
+###
+GET {{apiurl_1}}
+Content-Type: application/json
+
+### 
+# @name login
+POST {{apiurl_1}}/auth/login
+Content-Type: application/json
+
+{  
+    "email": "recep1@gmail.com",
+    "password": "123456" 
+}
+
+###
+GET {{apiurl_1}}/users
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+###
+POST {{apiurl_1}}/auth/signup
+Content-Type: application/json 
+
+{ 
+    "email": "recep34@gmail.com",
+    "password": "123456"
+    //"name" :"fgdg dgfg",
+    //"displayName" : "dfgd fgdg gdfg",
+    //"role" : "admin",
+    //"isActive": false
+}
+
+###
+POST {{apiurl_1}}/auth/logout
+Content-Type: application/json
+
+{  
+    "refreshToken" : "{{refreshToken}}",
+    "accessToken": "{{accessToken}}"
+}
+
+###
+POST {{apiurl_1}}/auth/accessToken
+Content-Type: application/json
+
+{  
+    //"refreshToken" : "{{refreshToken}}"
+    "refreshToken" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmNWExNWFjMTZiMWZmM2FkODJhM2Y5ZSIsImlhdCI6MTYwMzAwODAxOSwiZXhwIjoxNjAzMDI2MDE5fQ.DJdPL1D73EJ_LjRqkjKKbot0T876FXIG6LfbOCSHmqU"
+}
